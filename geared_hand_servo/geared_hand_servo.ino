@@ -7,7 +7,7 @@
  * Controls 8 servo motors (5 finger + 3 center/wrist) for a robotic hand
  * via serial command protocol.
  *
- * Author: Karl Kwon
+ * Author: Karl Kwon (mrthinks@gmail.com)
  */
 
 #include <Servo.h>

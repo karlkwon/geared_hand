@@ -6,7 +6,7 @@
  *
  * Custom binary protocol for servo command communication over serial.
  *
- * Author: Karl Kwon
+ * Author: Karl Kwon (mrthinks@gmail.com)
  */
 
 //  FR + 0 + Angle + 1 + Angle + 2 + Angle + 3 + Angle + 4 + Angle
