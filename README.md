@@ -11,8 +11,8 @@ Arduino-based robotic hand controller that drives 8 servo motors (5 finger) via 
 
 Two command formats are supported:
 
-| Format | Length | Example | Description |
-|------|--------|--------|---------|-------------|
+| Format | Length | Example | Description |</br>
+|------|--------|--------|---------|-------------|</br>
 | `F[R/L][ID][DEG]×5` | 22 bytes | `FR00901091209230934094` | Set all 5 finger servos |
 
 - `R`/`L` designates right or left hand
