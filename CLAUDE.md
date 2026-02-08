@@ -36,7 +36,6 @@ Serial (115200) → Packet Parser (hand_comm.h) → PacketCB() → Servo Control
 
 Custom binary format parsed by a state machine in `hand_comm.h`:
 
-- **PACKET_SINGLE (5 bytes):** `F[ID][DEG]` — Control one servo (e.g., `F1090` = servo 1 to 90°)
 - **PACKET_ALL (22 bytes):** `F[R/L][ID1][DEG1]...[ID5][DEG5]` — Control all 5 finger servos at once
 
 The parser uses states: `WAIT_PACKET` → `WAIT_TYPE` → `WAIT_ID` → `WAIT_DEG` → callback invocation.
