@@ -7,6 +7,8 @@ Arduino-based robotic hand controller that drives 8 servo motors (5 finger) via 
 - **Finger servos:** 5 servos on pins 7–11 (PWM range 544–2500 μs)
 - **Communication:** Serial at 115200 baud
 
+https://docs.google.com/presentation/d/1-_Rvh86f_xk2ow-MJeYnnwTJXy1DoREF38c9U_kc-0M/edit?usp=sharing
+
 ## Serial Protocol
 
 Two command formats are supported:
