@@ -21,6 +21,7 @@ int degs_past[5] = {0, 0, 0, 0, 0};
 int mortor_id = 0;
 int packet_rx_cnt = 0;
 int deg_rx_cnt = 0;
+unsigned long packet_time = 0;
 PACKET_TYPE packet_type = PACKET_SINGLE;
 PACKET_STATE packet_state = WAIT_PACKET;
 
@@ -37,7 +38,12 @@ void packet_mgr_init(PacketRx cb) {
     packet_mgr_reset();
 }
 
-int packet_mgr_parse(unsigned char c) {
+int packet_mgr_parse(unsigned char c, unsigned long curtime) {
+    if(packet_time + 100 < curtime) {
+      packet_state = WAIT_PACKET;
+    }
+    packet_time = curtime;
+
     switch(packet_state) {
         case WAIT_PACKET:
             if(c == 'F') {

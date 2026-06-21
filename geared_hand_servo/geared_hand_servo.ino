@@ -21,6 +21,11 @@ Servo *servos[5];
 int servoDeg[5] = {0, 0, 0, 0, 0};
 int serboPinNum[5] = {7, 8, 9, 10, 11};
 
+//  rock paper scissors
+unsigned char scissors[] = "FR00001000218031804180";
+unsigned char rock[] = "FR01801180218031804180";
+unsigned char paper[] = "FR00001000200030004000";
+
 int pos = 0;    // variable to store the servo position
 unsigned char receivedData = 0;
 unsigned long pasttime = 0;
@@ -31,6 +36,12 @@ void servo_init() {
     servos[i] = new Servo();
     servos[i]->attach(serboPinNum[i], 544, 2500);
     servos[i]->write(0);
+  }
+}
+
+void send_string(unsigned char *cc, unsigned long t) {
+  for(int i=0; i<22 && cc[i]!=0; ++i) {
+    packet_mgr_parse(cc[i], t);
   }
 }
 
@@ -57,28 +68,59 @@ void PacketCB(PACKET_TYPE type, int id) {
 void setup() {
   Serial.begin(115200);
 
-  center_servo_4.attach(4);
-  center_servo_5.attach(5);
-  center_servo_6.attach(6);
+  pinMode(2, INPUT);
+  pinMode(3, INPUT);
+  pinMode(4, INPUT);
 
-  center_servo_4.write(0);              // tell servo to go to position in variable 'pos'
-  center_servo_5.write(0);              // tell servo to go to position in variable 'pos'
-  center_servo_6.write(0);              // tell servo to go to position in variable 'pos'
+  // center_servo_4.attach(4);
+  // center_servo_5.attach(5);
+  // center_servo_6.attach(6);
+
+  // center_servo_4.write(0);              // tell servo to go to position in variable 'pos'
+  // center_servo_5.write(0);              // tell servo to go to position in variable 'pos'
+  // center_servo_6.write(0);              // tell servo to go to position in variable 'pos'
 
   pasttime = millis();
 
   packet_mgr_init(PacketCB);
   servo_init();
+
+  Serial.print("ready!!");
 }
+
+unsigned long button_pasttime = 0;
 
 void loop() {
   unsigned long curtime = millis();
+  int p1 = digitalRead(2);
+  int p2 = digitalRead(3);
+  int p3 = digitalRead(4);
+
+#ifdef TOUCHBUTTON_TEST
+  if(button_pasttime + 100 < curtime) {
+
+    Serial.print(p1);
+    Serial.print(", ");
+    Serial.print(p2);
+    Serial.print(", ");
+    Serial.println(p3);
+
+    button_pasttime = curtime;
+  }
+#endif
+
+  if(p1 == 1)
+    send_string(scissors, curtime);
+  else if(p2 == 1)
+    send_string(rock, curtime);
+  else if(p3 == 1)
+    send_string(paper, curtime);
 
   if(Serial.available() > 0) {
     receivedData = Serial.read();
     Serial.write(receivedData);
 
-    packet_mgr_parse(receivedData);
+    packet_mgr_parse(receivedData, curtime);
   }
 
   {
