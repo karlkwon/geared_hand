@@ -2,6 +2,8 @@
 
 Arduino-based robotic hand controller that drives 8 servo motors (5 finger) via a custom serial command protocol.
 
+![Geared hand with touch sensor](images/greared_hand_w_touch.jpeg)
+
 ## Hardware
 
 - **Finger servos:** 5 servos on pins 7–11 (PWM range 544–2500 μs)
